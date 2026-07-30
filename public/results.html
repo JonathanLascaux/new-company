@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🏆 Résultats — La Palme de Miami</title>
+<title>🏆 Résultats — La Palme de St Pete</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Caveat:wght@700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
@@ -75,6 +75,21 @@
   .total small { font-size: .8rem; opacity: .8; }
 
   h2 { font-family: 'Lilita One', cursive; font-size: 1.15rem; margin-bottom: 8px; }
+  .verdict-card {
+    border: 2px solid var(--gold); box-shadow: 0 0 28px rgba(255,209,102,.45), 0 10px 30px rgba(45,27,105,.35);
+    background: linear-gradient(160deg, rgba(45,27,105,.75), rgba(179,45,125,.55));
+  }
+  .verdict-card h2 { color: var(--gold); text-shadow: 0 0 12px rgba(255,209,102,.6); text-align: center; font-size: 1.3rem; }
+  .verdict-winner { text-align: center; margin: 10px 0 4px; }
+  .verdict-winner .avatar { font-size: 3rem; display: block; }
+  .verdict-winner .name { font-family: 'Lilita One', cursive; font-size: 1.9rem;
+    background: linear-gradient(90deg, #ffd166, #ff2e97, #00e5c7);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 14px rgba(255,209,102,.5)); }
+  .verdict-winner .vtitle { font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--neon-teal);
+    text-shadow: 0 0 10px rgba(0,229,199,.6); }
+  .verdict-text { font-size: 1rem; font-weight: 600; line-height: 1.55; margin-top: 10px; white-space: pre-line; }
+  .verdict-sig { text-align: right; font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--gold); margin-top: 8px; }
   .comment { font-family: 'Caveat', cursive; font-size: 1.35rem; padding: 6px 0; }
   .comment b { color: var(--neon-teal); }
   .comment .to { color: var(--gold); }
@@ -93,6 +108,7 @@
   </header>
 
   <div class="podium" id="podium"></div>
+  <div class="card verdict-card" id="verdict" hidden></div>
   <div class="card" id="board"></div>
 
   <div class="card">
@@ -112,8 +128,25 @@ function esc(s) { return s.replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>
 async function refresh() {
   let data;
   try { data = await (await fetch('/api/results')).json(); } catch { return; }
-  const { presenters, criteria, votes } = data;
+  const { presenters, criteria, votes, verdict } = data;
   document.getElementById('count').textContent = votes.length;
+
+  const verdictEl = document.getElementById('verdict');
+  const vWinner = verdict && presenters.find((p) => p.id === verdict.winner);
+  if (vWinner) {
+    verdictEl.hidden = false;
+    verdictEl.innerHTML = `
+      <h2>🤖 LE VERDICT DE CLAUDE 🏆</h2>
+      <div class="verdict-winner">
+        <span class="avatar">${vWinner.emoji}</span>
+        <div class="name">${vWinner.name}</div>
+        ${verdict.title ? `<div class="vtitle">${esc(verdict.title)}</div>` : ''}
+      </div>
+      <div class="verdict-text">${esc(verdict.explanation || '')}</div>
+      <div class="verdict-sig">— Claude, jury impartial 🤖🌴</div>`;
+  } else {
+    verdictEl.hidden = true;
+  }
 
   const stats = presenters.map((p) => {
     const mine = votes.filter((v) => v.presenter === p.id);

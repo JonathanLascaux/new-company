@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * La Palme de Miami — one-shot presentation voting app.
+ * La Palme de St Pete — one-shot presentation voting app.
  * Zero dependencies: `node server.js`, then share the printed Wi-Fi URL.
  * Votes are persisted to votes.json next to this file.
+ * Claude's end-of-night verdict is read live from verdict.json (see CLAUDE.md).
  */
 const http = require('node:http');
 const fs = require('node:fs');
@@ -11,6 +12,7 @@ const os = require('node:os');
 
 const PORT = Number(process.env.PORT) || 4540;
 const DATA_FILE = path.join(__dirname, 'votes.json');
+const VERDICT_FILE = path.join(__dirname, 'verdict.json');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 const PRESENTERS = [
@@ -24,7 +26,7 @@ const PRESENTERS = [
 
 const CRITERIA = [
   { id: 'app', label: '💎 La qualité de l’app', hint: 'Ça marche ? Ça claque ?' },
-  { id: 'vendable', label: '💰 Vendable ?', hint: 'Tu sortirais la carte bleue ?' },
+  { id: 'vendable', label: '💰 Le potentiel business', hint: 'On en lance une business unit ?' },
   { id: 'show', label: '🎤 Le show', hint: 'Le pitch, le charisme, la scène' },
   { id: 'creativite', label: '🌶️ La créativité', hint: 'Le petit truc en plus' },
 ];
@@ -90,7 +92,13 @@ const server = http.createServer((req, res) => {
       return sendJson(res, 200, { presenters: PRESENTERS, criteria: CRITERIA });
     }
     if (url.pathname === '/api/results') {
-      return sendJson(res, 200, { presenters: PRESENTERS, criteria: CRITERIA, votes });
+      // Re-read verdict.json on every call so Claude's verdict, written while
+      // the server runs, appears in the app within one refresh.
+      let verdict = null;
+      try {
+        verdict = JSON.parse(fs.readFileSync(VERDICT_FILE, 'utf8'));
+      } catch {}
+      return sendJson(res, 200, { presenters: PRESENTERS, criteria: CRITERIA, votes, verdict });
     }
     return serveFile(res, url.pathname.slice(1));
   }
@@ -160,7 +168,7 @@ server.listen(PORT, '0.0.0.0', () => {
   }
   console.log('');
   console.log('  🌴🦩 ═══════════════════════════════════════ 🦩🌴');
-  console.log('        LA PALME DE MIAMI — c’est parti !');
+  console.log('     LA PALME DE ST PETE — Sunshine City, baby !');
   console.log('  ═══════════════════════════════════════════════');
   console.log('');
   console.log('  Partage cette adresse sur le Wi-Fi :');
