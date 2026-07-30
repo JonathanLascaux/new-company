@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🏆 Résultats — La Palme de Miami</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Caveat:wght@700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sunset1: #2d1b69; --sunset2: #b32d7d; --sunset3: #ff6b6b; --sunset4: #ffb347;
+    --neon-pink: #ff2e97; --neon-teal: #00e5c7; --gold: #ffd166; --card: rgba(255,255,255,.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100dvh; color: #fff; font-family: 'Nunito', sans-serif;
+    background: var(--sunset1); overflow-x: hidden;
+  }
+  /* fixed gradient as its own layer: background-attachment:fixed is broken on iOS Safari */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -2;
+    background: linear-gradient(180deg, var(--sunset1) 0%, var(--sunset2) 38%, var(--sunset3) 68%, var(--sunset4) 100%);
+  }
+  .palms { position: fixed; bottom: -8px; width: 100%; display: flex; justify-content: space-between;
+    font-size: clamp(3rem, 10vw, 6rem); opacity: .3; z-index: -1; pointer-events: none; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; }
+  header { text-align: center; margin-bottom: 8px; }
+  .kicker { font-family: 'Caveat', cursive; font-size: 1.4rem; color: var(--neon-teal);
+    text-shadow: 0 0 12px rgba(0,229,199,.8); transform: rotate(-2deg); }
+  h1 {
+    font-family: 'Lilita One', cursive; font-size: clamp(2rem, 8vw, 3rem);
+    background: linear-gradient(90deg, #ffd166, #ff2e97, #00e5c7);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 3px 0 rgba(45,27,105,.6)) drop-shadow(0 0 18px rgba(255,46,151,.55));
+  }
+  .live { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 800;
+    background: rgba(255,255,255,.12); border-radius: 999px; padding: 6px 14px; font-size: .85rem; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff4d4d;
+    box-shadow: 0 0 8px #ff4d4d; animation: blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  .podium { display: flex; align-items: flex-end; justify-content: center; gap: 10px; margin: 24px 0 8px; }
+  .pod { text-align: center; flex: 1; max-width: 170px; }
+  .pod .who { font-family: 'Lilita One', cursive; font-size: 1.05rem; }
+  .pod .avatar { font-size: 2.4rem; }
+  .pod .score { font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--gold); }
+  .pod .block { border-radius: 14px 14px 0 0; margin-top: 6px;
+    display: grid; place-items: center; font-size: 1.6rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,.08));
+    border: 1px solid rgba(255,255,255,.3); border-bottom: none; }
+  .pod.p1 .block { height: 110px; background: linear-gradient(180deg, rgba(255,209,102,.65), rgba(255,209,102,.15));
+    box-shadow: 0 0 24px rgba(255,209,102,.5); }
+  .pod.p2 .block { height: 78px; }
+  .pod.p3 .block { height: 56px; background: linear-gradient(180deg, rgba(205,127,50,.55), rgba(205,127,50,.12)); }
+
+  .card {
+    background: rgba(45,27,105,.55); border: 1px solid rgba(255,255,255,.22); border-radius: 22px;
+    padding: 18px; margin-top: 16px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(45,27,105,.35);
+  }
+  .row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,.18); }
+  .row:last-child { border-bottom: none; }
+  .rank { font-family: 'Lilita One', cursive; width: 34px; text-align: center; font-size: 1.2rem; }
+  .row .avatar { font-size: 1.7rem; }
+  .grow { flex: 1; min-width: 0; }
+  .name { font-weight: 800; }
+  .nvotes { font-size: .78rem; opacity: .8; }
+  .bars { display: grid; gap: 3px; margin-top: 4px; }
+  .barline { display: grid; grid-template-columns: 26px 1fr 30px; align-items: center; gap: 6px; font-size: .72rem; }
+  .track { height: 8px; border-radius: 99px; background: rgba(255,255,255,.15); overflow: hidden; }
+  .fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--neon-pink), var(--gold)); transition: width .6s; }
+  .total { font-family: 'Lilita One', cursive; font-size: 1.4rem; color: var(--gold);
+    text-shadow: 0 0 10px rgba(255,209,102,.6); white-space: nowrap; }
+  .total small { font-size: .8rem; opacity: .8; }
+
+  h2 { font-family: 'Lilita One', cursive; font-size: 1.15rem; margin-bottom: 8px; }
+  .comment { font-family: 'Caveat', cursive; font-size: 1.35rem; padding: 6px 0; }
+  .comment b { color: var(--neon-teal); }
+  .comment .to { color: var(--gold); }
+  .empty { text-align: center; padding: 30px 10px; font-family: 'Caveat', cursive; font-size: 1.6rem; opacity: .9; }
+  .footer { text-align: center; margin-top: 26px; font-family: 'Caveat', cursive; font-size: 1.25rem; opacity: .85; }
+  .footer a { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="palms"><span>🌴</span><span>🌴</span></div>
+<div class="wrap">
+  <header>
+    <div class="kicker">Roulement de tambour… 🥁</div>
+    <h1>🏆 LES RÉSULTATS 🏆</h1>
+    <div class="live"><span class="dot"></span> EN DIRECT — <span id="count">0</span> vote(s)</div>
+  </header>
+
+  <div class="podium" id="podium"></div>
+  <div class="card" id="board"></div>
+
+  <div class="card">
+    <h2>💌 Les p’tits mots doux</h2>
+    <div id="comments"><div class="empty">Rien pour l’instant… soyez sympas ! 🥺</div></div>
+  </div>
+
+  <div class="footer">Pas encore voté ? 👉 <a href="/">c’est par ici</a> 🗳️</div>
+</div>
+
+<script>
+const MEDALS = ['🥇','🥈','🥉','4','5','6'];
+
+function avg(list) { return list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0; }
+function esc(s) { return s.replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+async function refresh() {
+  let data;
+  try { data = await (await fetch('/api/results')).json(); } catch { return; }
+  const { presenters, criteria, votes } = data;
+  document.getElementById('count').textContent = votes.length;
+
+  const stats = presenters.map((p) => {
+    const mine = votes.filter((v) => v.presenter === p.id);
+    const perCrit = criteria.map((c) => ({ c, avg: avg(mine.map((v) => v.scores[c.id])) }));
+    return { p, n: mine.length, perCrit, overall: avg(perCrit.filter((x) => x.avg).map((x) => x.avg)) };
+  }).sort((a, b) => b.overall - a.overall || b.n - a.n);
+
+  const scored = stats.filter((s) => s.n > 0);
+  document.getElementById('podium').innerHTML = scored.length
+    ? [scored[1], scored[0], scored[2]].filter(Boolean).map((s) => {
+        const place = scored.indexOf(s) + 1;
+        return `<div class="pod p${place}">
+          <div class="avatar">${s.p.emoji}</div>
+          <div class="who">${s.p.name}</div>
+          <div class="score">${s.overall.toFixed(2)} / 5</div>
+          <div class="block">${MEDALS[place - 1]}</div>
+        </div>`;
+      }).join('')
+    : '<div class="empty">La palme attend son héros… 🌴</div>';
+
+  document.getElementById('board').innerHTML = stats.map((s, i) => `
+    <div class="row">
+      <div class="rank">${s.n ? MEDALS[i] : '—'}</div>
+      <div class="avatar">${s.p.emoji}</div>
+      <div class="grow">
+        <div class="name">${s.p.name} <span class="nvotes">· ${s.n} vote(s)</span></div>
+        <div class="bars">
+          ${s.perCrit.map(({ c, avg }) => `
+            <div class="barline">
+              <span>${c.label.split(' ')[0]}</span>
+              <div class="track"><div class="fill" style="width:${avg * 20}%"></div></div>
+              <span>${avg ? avg.toFixed(1) : '—'}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="total">${s.n ? s.overall.toFixed(2) : '—'}<small> /5</small></div>
+    </div>`).join('');
+
+  const comments = votes.filter((v) => v.comment);
+  if (comments.length) {
+    const byId = Object.fromEntries(presenters.map((p) => [p.id, p]));
+    document.getElementById('comments').innerHTML = comments.slice(-15).reverse().map((v) => `
+      <div class="comment"><b>${esc(v.voter)}</b> <span class="to">→ ${byId[v.presenter].emoji} ${byId[v.presenter].name}</span> : « ${esc(v.comment)} »</div>
+    `).join('');
+  }
+}
+
+refresh();
+setInterval(refresh, 4000);
+</script>
+</body>
+</html>
