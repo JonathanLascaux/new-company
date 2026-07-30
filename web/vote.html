@@ -218,6 +218,8 @@ async function fetchVotes() {
       const v = JSON.parse(m.message);
       if (v.t === 'vote' && v.voter && v.presenter && v.scores) {
         latest.set(voterKey(v.voter) + '|' + v.presenter, v);
+      } else if (v.t === 'retract' && v.voter && v.presenter) {
+        latest.delete(voterKey(v.voter) + '|' + v.presenter);
       }
     } catch {}
   }

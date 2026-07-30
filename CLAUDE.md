@@ -13,7 +13,8 @@ unit** — something with real growth potential. That context matters when judgi
   `results.html` served from this repo via raw.githack, votes carried by the
   public ntfy.sh pub/sub. Event topic: **`ffy-palme-stpete-2607-jx4q`**
   (override with `?t=<topic>` on both pages — keep them in sync). Messages are
-  JSON: `{t:'vote', voter, presenter, scores, comment, at}` and
+  JSON: `{t:'vote', voter, presenter, scores, comment, at}`,
+  `{t:'retract', voter, presenter, at}` (drops that voter's vote for that presenter) and
   `{t:'verdict', winner, title, explanation, at}`. Latest message per
   (voter, presenter) wins; latest verdict message wins. ntfy caches ~12h, so
   archive votes before they age out (see verdict ritual).
