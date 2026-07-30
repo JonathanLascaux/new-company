@@ -1,0 +1,301 @@
+[
+  {
+    "t": "vote",
+    "voter": "Sébastien",
+    "presenter": "herve",
+    "scores": {
+      "app": 4,
+      "vendable": 3,
+      "show": 3,
+      "creativite": 4
+    },
+    "comment": "Un rendu visuel au top !",
+    "at": "2026-07-30T18:42:20.246Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Said",
+    "presenter": "herve",
+    "scores": {
+      "app": 3,
+      "vendable": 3,
+      "show": 5,
+      "creativite": 3
+    },
+    "comment": "",
+    "at": "2026-07-30T18:42:42.396Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "herve",
+    "scores": {
+      "app": 5,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 3
+    },
+    "comment": "Magnifik",
+    "at": "2026-07-30T18:43:54.396Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Maïté",
+    "presenter": "herve",
+    "scores": {
+      "app": 5,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "j'adore ! j'aurais tellement aimé avoir cette application en étant chez le client ! Merci Hervé !!!!",
+    "at": "2026-07-30T18:52:43.623Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Sébastien",
+    "presenter": "julien",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 3,
+      "creativite": 4
+    },
+    "comment": "Une app tellement demandée, hyper parametrable et traçable",
+    "at": "2026-07-30T18:59:07.017Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Hervé",
+    "presenter": "julien",
+    "scores": {
+      "app": 4,
+      "vendable": 3,
+      "show": 3,
+      "creativite": 3
+    },
+    "comment": "Belle appli, elle a de l'avenir !",
+    "at": "2026-07-30T19:04:19.499Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Said",
+    "presenter": "julien",
+    "scores": {
+      "app": 4,
+      "vendable": 4,
+      "show": 3,
+      "creativite": 4
+    },
+    "comment": "",
+    "at": "2026-07-30T19:07:10.471Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Maïté",
+    "presenter": "julien",
+    "scores": {
+      "app": 4,
+      "vendable": 4,
+      "show": 3,
+      "creativite": 3
+    },
+    "comment": "",
+    "at": "2026-07-30T19:08:12.523Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Julien",
+    "presenter": "herve",
+    "scores": {
+      "show": 4,
+      "creativite": 4,
+      "vendable": 5,
+      "app": 4
+    },
+    "comment": "Très pratique et interactif avec un potentiel",
+    "at": "2026-07-30T19:11:15.628Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Lionel Hippo",
+    "presenter": "herve",
+    "scores": {
+      "app": 5,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 5
+    },
+    "comment": "Joli. Attention aux Prérequis : liste de task recorder à générer que je pense être pénible à faire.",
+    "at": "2026-07-30T19:11:34.985Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "julien",
+    "scores": {
+      "app": 3,
+      "vendable": 5,
+      "show": 3,
+      "creativite": 2
+    },
+    "comment": "You are gonna change the world",
+    "at": "2026-07-30T19:11:49.618Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Lionel Hippo",
+    "presenter": "julien",
+    "scores": {
+      "app": 4,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Prometteur. permet de sortir du module Engineering.\nAttention à préciser le scope : là où démarre et s'arrête l'application.",
+    "at": "2026-07-30T19:13:55.203Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Hervé",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Impressionant ! bravo",
+    "at": "2026-07-30T19:38:54.012Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Maïté",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 5,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Super App !!!!!",
+    "at": "2026-07-30T19:39:38.707Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Julien",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Très pratique pour le user !",
+    "at": "2026-07-30T19:40:05.127Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 5,
+      "creativite": 3
+    },
+    "comment": "Business power!!",
+    "at": "2026-07-30T19:40:16.661Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Lionel Hippo",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 5,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "",
+    "at": "2026-07-30T19:40:43.223Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Sébastien",
+    "presenter": "said",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 3,
+      "creativite": 3
+    },
+    "comment": "",
+    "at": "2026-07-30T19:53:39.002Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Hervé",
+    "presenter": "said",
+    "scores": {
+      "vendable": 3,
+      "app": 4,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Enfin  !!! Je l'achète 😊",
+    "at": "2026-07-30T20:05:22.304Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Lionel Hippo",
+    "presenter": "said",
+    "scores": {
+      "app": 4,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 5
+    },
+    "comment": "",
+    "at": "2026-07-30T20:10:33.654Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Julien",
+    "presenter": "said",
+    "scores": {
+      "app": 4,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Fini les user admin !",
+    "at": "2026-07-30T20:12:23.644Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Maïté",
+    "presenter": "said",
+    "scores": {
+      "app": 4,
+      "vendable": 5,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "",
+    "at": "2026-07-30T20:12:25.368Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "said",
+    "scores": {
+      "app": 4,
+      "vendable": 3,
+      "show": 5,
+      "creativite": 3
+    },
+    "comment": "Cyber killer!",
+    "at": "2026-07-30T20:14:49.716Z"
+  }
+]
