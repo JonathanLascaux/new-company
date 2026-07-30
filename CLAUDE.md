@@ -7,6 +7,19 @@ app they built. The team votes from their phones (`node server.js`, port 4540).
 **Context of the week:** the goal is to identify FiveForty°'s **next business
 unit** — something with real growth potential. That context matters when judging.
 
+## Two editions
+
+- **`web/`** — the serverless edition (the one actually used): static `vote.html` +
+  `results.html` served from this repo via raw.githack, votes carried by the
+  public ntfy.sh pub/sub. Event topic: **`ffy-palme-stpete-2607-jx4q`**
+  (override with `?t=<topic>` on both pages — keep them in sync). Messages are
+  JSON: `{t:'vote', voter, presenter, scores, comment, at}` and
+  `{t:'verdict', winner, title, explanation, at}`. Latest message per
+  (voter, presenter) wins; latest verdict message wins. ntfy caches ~12h, so
+  archive votes before they age out (see verdict ritual).
+- **`server.js` + `public/`** — the self-hosted edition (laptop on a LAN),
+  kept as a fallback. Same design, votes in `votes.json`.
+
 ## Data files (runtime, gitignored)
 
 - `votes.json` — array of `{ voter, presenter, scores: { app, vendable, show,
@@ -20,7 +33,11 @@ unit** — something with real growth potential. That context matters when judgi
 
 When Jon asks for "le verdict", you are the jury. Do this:
 
-1. Read `votes.json`.
+1. Get the votes. Serverless edition: poll
+   `https://ntfy.sh/ffy-palme-stpete-2607-jx4q/json?poll=1&since=all`, keep the
+   latest `t:'vote'` message per (voter key, presenter), and archive the result
+   to `votes.json` (commit it — force-add past the gitignore — so the night's
+   data outlives ntfy's 12h cache). Self-hosted edition: read `votes.json`.
 2. Compute per-presenter averages for each criterion, plus a **weighted score**
    reflecting the week's goal: `vendable` (business potential) counts **double**
    — `(app + 2*vendable + show + creativite) / 5`. Tie-break on `creativite`
@@ -28,7 +45,11 @@ When Jon asks for "le verdict", you are the jury. Do this:
 3. Pick the winner, but judge like a human, not a spreadsheet: read the
    comments, notice standout criteria (a 5.0 in anything deserves a mention),
    and weave real quotes from the comments into your reasoning.
-4. Write `verdict.json`:
+4. Publish the verdict. Serverless edition: POST the verdict JSON (shape below,
+   plus `"t": "verdict"`) as the raw body to
+   `https://ntfy.sh/ffy-palme-stpete-2607-jx4q` — the results page shows the
+   golden card within one refresh (~8 s). Self-hosted edition: write it to
+   `verdict.json`:
 
 ```json
 {

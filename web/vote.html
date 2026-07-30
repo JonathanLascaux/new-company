@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🌴 La Palme de St Pete 🦩</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Caveat:wght@700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sunset1: #2d1b69; --sunset2: #b32d7d; --sunset3: #ff6b6b; --sunset4: #ffb347;
+    --neon-pink: #ff2e97; --neon-teal: #00e5c7; --gold: #ffd166;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { min-height: 100dvh; color: #fff; font-family: 'Nunito', sans-serif; background: var(--sunset1); overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -2;
+    background: linear-gradient(180deg, var(--sunset1) 0%, var(--sunset2) 38%, var(--sunset3) 68%, var(--sunset4) 100%);
+  }
+  .sun {
+    position: fixed; left: 50%; top: 14%; transform: translateX(-50%);
+    width: min(46vw, 300px); height: min(46vw, 300px); border-radius: 50%;
+    background: radial-gradient(circle, #ffe29a 0%, #ffb347 55%, rgba(255,110,90,0) 75%);
+    filter: blur(2px); opacity: .55; z-index: -1; animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: .75; transform: translateX(-50%) scale(1.05); } }
+  .palms { position: fixed; bottom: -8px; width: 100%; display: flex; justify-content: space-between;
+    font-size: clamp(3rem, 10vw, 6rem); opacity: .35; z-index: -1; pointer-events: none; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px 80px; }
+  header { text-align: center; margin-bottom: 20px; }
+  .kicker { font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--neon-teal);
+    text-shadow: 0 0 12px rgba(0,229,199,.8); transform: rotate(-2deg); }
+  h1 {
+    font-family: 'Lilita One', cursive; font-size: clamp(2.3rem, 9vw, 3.4rem); line-height: 1.05;
+    background: linear-gradient(90deg, #ffd166, #ff2e97, #00e5c7);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 3px 0 rgba(45,27,105,.6)) drop-shadow(0 0 18px rgba(255,46,151,.55));
+    letter-spacing: .02em;
+  }
+  .sub { font-weight: 800; opacity: .9; margin-top: 6px; font-size: .95rem; }
+  .card {
+    background: rgba(45,27,105,.55); border: 1px solid rgba(255,255,255,.22); border-radius: 22px;
+    padding: 18px; margin-top: 16px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(45,27,105,.35);
+  }
+  .card h2 { font-family: 'Lilita One', cursive; font-size: 1.15rem; letter-spacing: .03em; margin-bottom: 10px; }
+  .step { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--neon-pink); box-shadow: 0 0 10px rgba(255,46,151,.8); font-size: .85rem; margin-right: 8px; }
+  input[type=text] {
+    width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.92); color: #2d1b69; font: 800 1.05rem 'Nunito', sans-serif; outline: none;
+  }
+  input[type=text]:focus { border-color: var(--neon-teal); box-shadow: 0 0 0 4px rgba(0,229,199,.3); }
+  .presenters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .presenter {
+    border: 2px solid rgba(255,255,255,.3); border-radius: 16px; padding: 12px 6px; text-align: center;
+    background: rgba(255,255,255,.08); cursor: pointer; transition: transform .12s, background .12s, border-color .12s;
+    color: #fff; font: 800 .9rem 'Nunito', sans-serif; position: relative;
+  }
+  .presenter .avatar { font-size: 1.9rem; display: block; margin-bottom: 4px; }
+  .presenter:active { transform: scale(.94); }
+  .presenter.selected {
+    background: linear-gradient(135deg, rgba(255,46,151,.85), rgba(255,179,71,.85));
+    border-color: #fff; box-shadow: 0 0 18px rgba(255,46,151,.7); transform: scale(1.04);
+  }
+  .presenter .done { position: absolute; top: -7px; right: -7px; font-size: 1rem;
+    background: var(--neon-teal); color: #063; border-radius: 50%; width: 22px; height: 22px;
+    display: grid; place-items: center; box-shadow: 0 0 8px rgba(0,229,199,.9); }
+  .criterion { margin-top: 14px; }
+  .criterion .label { font-weight: 800; font-size: 1rem; }
+  .criterion .hint { font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--gold); opacity: .95; }
+  .stars { display: flex; gap: 6px; margin-top: 6px; }
+  .stars button {
+    flex: 1; font-size: 1.7rem; padding: 8px 0; border-radius: 12px; border: 2px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.08); cursor: pointer; filter: grayscale(1) opacity(.55); transition: all .1s;
+  }
+  .stars button.on { filter: none; background: rgba(255,209,102,.25); border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(255,209,102,.5); transform: scale(1.05); }
+  .stars button:active { transform: scale(.9); }
+  textarea {
+    width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: 14px; resize: none; height: 64px;
+    border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.92); color: #2d1b69;
+    font: 700 1rem 'Nunito', sans-serif; outline: none;
+  }
+  .submit {
+    width: 100%; margin-top: 20px; padding: 16px; border: none; border-radius: 18px; cursor: pointer;
+    font-family: 'Lilita One', cursive; font-size: 1.35rem; letter-spacing: .04em; color: #2d1b69;
+    background: linear-gradient(90deg, var(--gold), var(--neon-teal));
+    box-shadow: 0 8px 0 rgba(45,27,105,.5), 0 0 24px rgba(0,229,199,.5); transition: transform .1s, box-shadow .1s;
+  }
+  .submit:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(45,27,105,.5); }
+  .submit:disabled { opacity: .55; cursor: not-allowed; }
+  .msg { text-align: center; font-weight: 800; margin-top: 12px; min-height: 24px; }
+  .msg.ok { color: var(--neon-teal); text-shadow: 0 0 10px rgba(0,229,199,.7); }
+  .msg.err { color: #ffd6e7; }
+  .footer { text-align: center; margin-top: 26px; font-family: 'Caveat', cursive; font-size: 1.25rem; opacity: .85; }
+  .footer a { color: var(--gold); }
+  .confetti { position: fixed; top: -40px; font-size: 1.6rem; z-index: 99; pointer-events: none;
+    animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+</style>
+</head>
+<body>
+<div class="sun"></div>
+<div class="palms"><span>🌴</span><span>🌴</span></div>
+<div class="wrap">
+  <header>
+    <div class="kicker">FiveForty° présente, en direct de St Pete, Sunshine City…</div>
+    <h1>LA PALME<br>DE ST PETE</h1>
+    <div class="sub">🥖 Note les démos sans pitié 😎 Objectif : la prochaine business unit 🚀</div>
+  </header>
+
+  <div class="card">
+    <h2><span class="step">1</span>Ton p’tit nom</h2>
+    <input type="text" id="voter" maxlength="40" placeholder="Ex : Jean-Michel Sunshine" autocomplete="name">
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span>Qui passe sur le grill ? 🔥</h2>
+    <div class="presenters" id="presenters"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">3</span>Tes notes <small style="opacity:.7">(1 à 5)</small></h2>
+    <div id="criteria"></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">4</span>Un p’tit mot doux <small style="opacity:.7">(optionnel)</small></h2>
+    <textarea id="comment" maxlength="140" placeholder="« Magnifique, très Dalí 🎨 »"></textarea>
+  </div>
+
+  <button class="submit" id="submit">ENVOYER MON VOTE 🗳️</button>
+  <div class="msg" id="msg"></div>
+
+  <div class="footer">Les résultats en direct 👉 <a id="resultsLink" href="results.html">par ici</a> 🦩</div>
+</div>
+
+<script>
+// Serverless edition: votes travel through ntfy.sh (anonymous HTTPS pub/sub).
+// Override the event topic with ?t=my-topic to run a fresh/test session.
+const TOPIC = new URLSearchParams(location.search).get('t') || 'ffy-palme-stpete-2607-jx4q';
+const NTFY = 'https://ntfy.sh/' + encodeURIComponent(TOPIC);
+
+const CONFIG = {
+  presenters: [
+    { id: 'herve', name: 'Hervé', emoji: '🦩' },
+    { id: 'sebastien', name: 'Sébastien', emoji: '🐊' },
+    { id: 'said', name: 'Saïd', emoji: '🌊' },
+    { id: 'lionel', name: 'Lionel', emoji: '🐬' },
+    { id: 'maite', name: 'Maïté', emoji: '🍹' },
+    { id: 'julien', name: 'Julien', emoji: '🌴' },
+  ],
+  criteria: [
+    { id: 'app', label: '💎 La qualité de l’app', hint: 'Ça marche ? Ça claque ?' },
+    { id: 'vendable', label: '💰 Le potentiel business', hint: 'On en lance une business unit ?' },
+    { id: 'show', label: '🎤 Le show', hint: 'Le pitch, le charisme, la scène' },
+    { id: 'creativite', label: '🌶️ La créativité', hint: 'Le petit truc en plus' },
+  ],
+};
+
+let selected = null;
+const scores = {};
+let myVotes = new Set();
+
+const $ = (id) => document.getElementById(id);
+$('voter').value = localStorage.getItem('palme.voter') || '';
+if (location.search) $('resultsLink').href = 'results.html' + location.search;
+
+function voterKey(name) {
+  return name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+function renderPresenters() {
+  $('presenters').innerHTML = CONFIG.presenters.map((p) => `
+    <button class="presenter ${selected === p.id ? 'selected' : ''}" data-id="${p.id}">
+      <span class="avatar">${p.emoji}</span>${p.name}
+      ${myVotes.has(p.id) ? '<span class="done">✓</span>' : ''}
+    </button>`).join('');
+  document.querySelectorAll('.presenter').forEach((b) =>
+    b.addEventListener('click', () => { selected = b.dataset.id; renderPresenters(); }));
+}
+
+function renderCriteria() {
+  $('criteria').innerHTML = CONFIG.criteria.map((c) => `
+    <div class="criterion">
+      <div class="label">${c.label}</div>
+      <div class="hint">${c.hint}</div>
+      <div class="stars" data-id="${c.id}">
+        ${[1,2,3,4,5].map((n) => `<button data-n="${n}">⭐</button>`).join('')}
+      </div>
+    </div>`).join('');
+  document.querySelectorAll('.stars').forEach((row) => {
+    row.querySelectorAll('button').forEach((b) =>
+      b.addEventListener('click', () => {
+        scores[row.dataset.id] = Number(b.dataset.n);
+        row.querySelectorAll('button').forEach((x) =>
+          x.classList.toggle('on', Number(x.dataset.n) <= scores[row.dataset.id]));
+      }));
+  });
+}
+
+function clearStars() {
+  CONFIG.criteria.forEach((c) => delete scores[c.id]);
+  document.querySelectorAll('.stars button').forEach((b) => b.classList.remove('on'));
+}
+
+async function fetchVotes() {
+  const res = await fetch(NTFY + '/json?poll=1&since=all');
+  const text = await res.text();
+  const latest = new Map();
+  for (const line of text.split('\n')) {
+    if (!line.trim()) continue;
+    try {
+      const m = JSON.parse(line);
+      if (m.event !== 'message') continue;
+      const v = JSON.parse(m.message);
+      if (v.t === 'vote' && v.voter && v.presenter && v.scores) {
+        latest.set(voterKey(v.voter) + '|' + v.presenter, v);
+      }
+    } catch {}
+  }
+  return [...latest.values()];
+}
+
+async function refreshMyVotes() {
+  const me = voterKey($('voter').value);
+  try {
+    const votes = await fetchVotes();
+    myVotes = new Set(votes.filter((v) => voterKey(v.voter) === me).map((v) => v.presenter));
+  } catch { myVotes = new Set(); }
+  renderPresenters();
+}
+
+function confetti() {
+  const emojis = ['🌴','🦩','⭐','🥖','☀️','🍹','💖','🇫🇷'];
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('span');
+    s.className = 'confetti';
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = 2 + Math.random() * 2 + 's';
+    s.style.animationDelay = Math.random() * 0.6 + 's';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 5000);
+  }
+}
+
+$('submit').addEventListener('click', async () => {
+  const msg = $('msg');
+  msg.className = 'msg';
+  const voter = $('voter').value.replace(/\s+/g, ' ').trim();
+  if (voter.length < 2) { msg.className = 'msg err'; msg.textContent = 'Ton p’tit nom d’abord ! ☝️'; return; }
+  if (!selected) { msg.className = 'msg err'; msg.textContent = 'Choisis qui tu notes ! 🔥'; return; }
+  const missing = CONFIG.criteria.filter((c) => !scores[c.id]);
+  if (missing.length) { msg.className = 'msg err'; msg.textContent = `Il manque des étoiles : ${missing[0].label} ⭐`; return; }
+
+  localStorage.setItem('palme.voter', voter);
+  $('submit').disabled = true;
+  try {
+    const updating = myVotes.has(selected);
+    const body = JSON.stringify({
+      t: 'vote', voter, presenter: selected, scores: { ...scores },
+      comment: $('comment').value.trim().slice(0, 140), at: new Date().toISOString(),
+    });
+    const r = await fetch(NTFY, { method: 'POST', body });
+    if (!r.ok) throw new Error('Envoi impossible (' + r.status + ')');
+    const name = CONFIG.presenters.find((p) => p.id === selected)?.name;
+    msg.className = 'msg ok';
+    msg.textContent = updating
+      ? `Vote pour ${name} mis à jour ! 🔄✨`
+      : `Merci ${voter} ! Vote pour ${name} enregistré 🎉`;
+    confetti();
+    myVotes.add(selected);
+    selected = null;
+    clearStars();
+    $('comment').value = '';
+    renderPresenters();
+  } catch (e) {
+    msg.className = 'msg err';
+    msg.textContent = e.message + ' 😬';
+  }
+  $('submit').disabled = false;
+});
+
+$('voter').addEventListener('change', refreshMyVotes);
+
+renderCriteria();
+refreshMyVotes();
+</script>
+</body>
+</html>

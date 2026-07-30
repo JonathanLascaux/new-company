@@ -8,7 +8,25 @@ One-shot voting app for the FiveForty° demo week in **St Petersburg, Florida**
 At the end of the night, Claude (from Claude Code) analyses the votes and
 delivers **le verdict** — displayed right in the app.
 
-## Run it (one command, zero install)
+## ⚡ Serverless edition (no laptop, no install — the one to use)
+
+`web/vote.html` and `web/results.html` are fully static: votes travel through
+the public [ntfy.sh](https://ntfy.sh) pub/sub (anonymous HTTPS, CORS-open), and
+the pages aggregate everything client-side. **This repo must be public**, then
+the pages are served straight from GitHub via raw.githack:
+
+- Vote: `https://raw.githack.com/JonathanLascaux/new-company/claude/presentation-voting-app-478ctz/web/vote.html`
+- Results: `https://raw.githack.com/JonathanLascaux/new-company/claude/presentation-voting-app-478ctz/web/results.html`
+
+Share the vote link with the team (any network, any phone); put the results
+link on the big screen. Fresh event: add `?t=some-new-topic` to **both** links.
+Claude publishes the end-of-night verdict to the same ntfy topic (see
+`CLAUDE.md`) and it appears live on the results page.
+
+> ntfy.sh keeps messages ~12 h — plenty for the evening; Claude archives the
+> votes to git at verdict time.
+
+## Self-hosted edition (laptop on the same Wi-Fi)
 
 You only need [Node.js](https://nodejs.org) (any recent version — no `npm install`, no dependencies).
 
