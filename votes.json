@@ -375,5 +375,18 @@
     },
     "comment": "Can’t wait to get your reminders!!",
     "at": "2026-07-30T20:43:26.140Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Julien",
+    "presenter": "maite",
+    "scores": {
+      "app": 4,
+      "vendable": 3,
+      "show": 4,
+      "creativite": 5
+    },
+    "comment": "Impatient de tester !",
+    "at": "2026-07-30T20:43:57.488Z"
   }
 ]
