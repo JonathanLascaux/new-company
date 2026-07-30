@@ -310,5 +310,70 @@
     },
     "comment": "",
     "at": "2026-07-30T20:40:43.729Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Sébastien",
+    "presenter": "maite",
+    "scores": {
+      "app": 5,
+      "vendable": 3,
+      "show": 3,
+      "creativite": 4
+    },
+    "comment": "👏 Une app très bien finie 👍 qui remplie toute seule les tickets DevOps 🤩",
+    "at": "2026-07-30T20:42:30.991Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Hervé",
+    "presenter": "maite",
+    "scores": {
+      "app": 3,
+      "vendable": 3,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "Un outil pour les feignants, j'adore !",
+    "at": "2026-07-30T20:42:47.820Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Said",
+    "presenter": "maite",
+    "scores": {
+      "app": 2,
+      "vendable": 3,
+      "show": 3,
+      "creativite": 3
+    },
+    "comment": "",
+    "at": "2026-07-30T20:42:54.744Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Lionel Hippo",
+    "presenter": "maite",
+    "scores": {
+      "app": 4,
+      "vendable": 3,
+      "show": 5,
+      "creativite": 4
+    },
+    "comment": "",
+    "at": "2026-07-30T20:43:02.005Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "maite",
+    "scores": {
+      "app": 4,
+      "vendable": 2,
+      "show": 3,
+      "creativite": 3
+    },
+    "comment": "Can’t wait to get your reminders!!",
+    "at": "2026-07-30T20:43:26.140Z"
   }
 ]
