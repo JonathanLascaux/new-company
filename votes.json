@@ -453,5 +453,18 @@
     },
     "comment": "",
     "at": "2026-07-30T21:25:58.040Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Jonathan",
+    "presenter": "lionel",
+    "scores": {
+      "app": 3,
+      "vendable": 3,
+      "show": 2,
+      "creativite": 3
+    },
+    "comment": "Can’t wait to see Christofle using it",
+    "at": "2026-07-30T21:26:17.973Z"
   }
 ]
