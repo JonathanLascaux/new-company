@@ -86,6 +86,12 @@
     text-shadow: 0 0 10px rgba(0,229,199,.6); }
   .verdict-text { font-size: 1rem; font-weight: 600; line-height: 1.55; margin-top: 10px; white-space: pre-line; }
   .verdict-sig { text-align: right; font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--gold); margin-top: 8px; }
+  .voter-block { padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,.18); }
+  .voter-block:last-child { border-bottom: none; }
+  .voter-name { font-weight: 800; color: var(--neon-teal); }
+  .voter-line { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .92rem; padding: 3px 0 3px 12px; }
+  .voter-line .vp { font-weight: 800; color: var(--gold); min-width: 110px; }
+  .voter-line .vc { font-family: 'Caveat', cursive; font-size: 1.1rem; opacity: .95; width: 100%; padding-left: 12px; }
   .comment { font-family: 'Caveat', cursive; font-size: 1.35rem; padding: 6px 0; }
   .comment b { color: var(--neon-teal); }
   .comment .to { color: var(--gold); }
@@ -107,6 +113,11 @@
   <div class="card verdict-card" id="verdict" hidden></div>
   <div class="card" id="board"></div>
 
+  <div class="card" id="details" hidden>
+    <h2>🕵️ Le détail par votant</h2>
+    <div id="detailsBody"></div>
+  </div>
+
   <div class="card">
     <h2>💌 Les p’tits mots doux</h2>
     <div id="comments"><div class="empty">Rien pour l’instant… soyez sympas ! 🥺</div></div>
@@ -118,9 +129,11 @@
 <script>
 // Serverless edition: reads votes + Claude's verdict from ntfy.sh.
 // Keep the ?t= topic in sync with vote.html.
-const TOPIC = new URLSearchParams(location.search).get('t') || 'ffy-palme-stpete-2607-jx4q';
+const PARAMS = new URLSearchParams(location.search);
+const TOPIC = PARAMS.get('t') || 'ffy-palme-stpete-2607-jx4q';
 const NTFY = 'https://ntfy.sh/' + encodeURIComponent(TOPIC);
-if (location.search) document.getElementById('voteLink').href = 'vote.html' + location.search;
+const SHOW_DETAILS = PARAMS.has('details');
+if (PARAMS.get('t')) document.getElementById('voteLink').href = 'vote.html?t=' + encodeURIComponent(PARAMS.get('t'));
 
 const PRESENTERS = [
   { id: 'herve', name: 'Hervé', emoji: '🦩' },
@@ -224,6 +237,29 @@ async function refresh() {
       </div>
       <div class="total">${s.n ? s.overall.toFixed(2) : '—'}<small> /5</small></div>
     </div>`).join('');
+
+  if (SHOW_DETAILS) {
+    const byId = Object.fromEntries(PRESENTERS.map((p) => [p.id, p]));
+    const byVoter = new Map();
+    for (const v of votes) {
+      const k = voterKey(v.voter);
+      if (!byVoter.has(k)) byVoter.set(k, { name: v.voter, votes: [] });
+      byVoter.get(k).votes.push(v);
+    }
+    document.getElementById('details').hidden = false;
+    document.getElementById('detailsBody').innerHTML = byVoter.size
+      ? [...byVoter.values()].sort((a, b) => a.name.localeCompare(b.name)).map((voter) => `
+        <div class="voter-block">
+          <div class="voter-name">${esc(voter.name)} · ${voter.votes.length} vote(s)</div>
+          ${voter.votes.map((v) => { const p = byId[v.presenter]; const s = v.scores; return `
+            <div class="voter-line">
+              <span class="vp">${p.emoji} ${p.name}</span>
+              <span>💎 ${s.app}</span><span>💰 ${s.vendable}</span><span>🎤 ${s.show}</span><span>🌶️ ${s.creativite}</span>
+              ${v.comment ? `<span class="vc">« ${esc(v.comment)} »</span>` : ''}
+            </div>`; }).join('')}
+        </div>`).join('')
+      : '<div class="empty">Aucun vote pour l’instant 🌴</div>';
+  }
 
   const comments = votes.filter((v) => v.comment).sort((a, b) => (a.at || '').localeCompare(b.at || ''));
   if (comments.length) {
