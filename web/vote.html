@@ -207,7 +207,8 @@ function clearStars() {
 }
 
 async function fetchVotes() {
-  const res = await fetch(NTFY + '/json?poll=1&since=all');
+  const res = await fetch(NTFY + '/json?poll=1&since=all', { cache: 'no-store' });
+  if (!res.ok) throw new Error('poll ' + res.status);
   const text = await res.text();
   const latest = new Map();
   for (const line of text.split('\n')) {
@@ -231,7 +232,7 @@ async function refreshMyVotes() {
   try {
     const votes = await fetchVotes();
     myVotes = new Set(votes.filter((v) => voterKey(v.voter) === me).map((v) => v.presenter));
-  } catch { myVotes = new Set(); }
+  } catch { /* keep last known state on transient failure */ }
   renderPresenters();
 }
 

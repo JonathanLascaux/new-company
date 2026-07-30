@@ -158,7 +158,8 @@ function avg(list) { return list.length ? list.reduce((a, b) => a + b, 0) / list
 function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
 async function fetchAll() {
-  const res = await fetch(NTFY + '/json?poll=1&since=all');
+  const res = await fetch(NTFY + '/json?poll=1&since=all', { cache: 'no-store' });
+  if (!res.ok) throw new Error('poll ' + res.status);
   const text = await res.text();
   const latest = new Map();
   let verdict = null;
@@ -180,10 +181,16 @@ async function fetchAll() {
   return { votes: [...latest.values()], verdict };
 }
 
+let lastGood = null; // survive transient poll failures (rate limits, blips)
 async function refresh() {
-  let data;
-  try { data = await fetchAll(); } catch { return; }
-  const { votes, verdict } = data;
+  try {
+    lastGood = await fetchAll();
+    try { localStorage.setItem('palme.cache.' + TOPIC, JSON.stringify(lastGood)); } catch {}
+  } catch {
+    if (!lastGood) { try { lastGood = JSON.parse(localStorage.getItem('palme.cache.' + TOPIC)); } catch {} }
+  }
+  if (!lastGood) return;
+  const { votes, verdict } = lastGood;
   document.getElementById('count').textContent = votes.length;
 
   const stats = PRESENTERS.map((p) => {
@@ -273,7 +280,8 @@ async function refresh() {
 }
 
 refresh();
-setInterval(refresh, 8000);
+// jittered interval so several screens don't hammer ntfy in sync (rate limits)
+setInterval(refresh, 9000 + Math.floor(Math.random() * 5000));
 </script>
 </body>
 </html>
