@@ -297,5 +297,18 @@
     },
     "comment": "Cyber killer!",
     "at": "2026-07-30T20:14:49.716Z"
+  },
+  {
+    "t": "vote",
+    "voter": "Said",
+    "presenter": "sebastien",
+    "scores": {
+      "app": 3,
+      "vendable": 4,
+      "show": 4,
+      "creativite": 4
+    },
+    "comment": "",
+    "at": "2026-07-30T20:40:43.729Z"
   }
 ]
